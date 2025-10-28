@@ -1,5 +1,5 @@
 # Django
-*.log
+django.log
 *.pot
 *.pyc
 __pycache__/
@@ -28,6 +28,4 @@ Thumbs.db
 # Database
 *.db
 
-logs/django.log
-
-dumb.rdb
+*.rdb

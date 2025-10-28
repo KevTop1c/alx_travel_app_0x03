@@ -1,0 +1,9 @@
+INFO 2025-10-28 16:58:29,582 chapa_service 41179 6199898112 Payment initialized successfully: TXN-AC2E75515BEF4647
+INFO 2025-10-28 16:58:29,590 views 41179 6199898112 Payment initiated for booking BOOKING-20251028-9BB107 by user kev.topic001@gmail.com
+INFO 2025-10-28 16:59:18,659 chapa_service 41179 6199898112 Payment verified successfully: TXN-AC2E75515BEF4647
+INFO 2025-10-28 16:59:18,683 chapa_service 41179 6199898112 Payment TXN-AC2E75515BEF4647 marked as success.
+INFO 2025-10-28 16:59:18,734 views 41179 6199898112 Payment verified successfully: TXN-AC2E75515BEF4647 for user kev.topic001@gmail.com
+INFO 2025-10-28 16:59:21,876 tasks 41669 8367196160 Payment confirmation email sent for payment TXN-AC2E75515BEF4647
+INFO 2025-10-28 17:07:44,233 tasks 41669 8367196160 Booking confirmation email sent successfully for booking BOOKING-20251028-9BB107 to kev.topic001@gmail.com
+INFO 2025-10-28 17:27:40,441 views 53956 6193262592 Booking confirmation email task queued for booking BOOKING-20251028-B57FE8. Task ID: 63647fe0-0f9d-4394-be35-c77af715a928
+INFO 2025-10-28 17:27:43,586 tasks 41669 8367196160 Booking confirmation email sent successfully for booking BOOKING-20251028-B57FE8 to kev.topic001@gmail.com
