@@ -17,6 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
     """Serializer for User model"""
 
     full_name = serializers.SerializerMethodField()
+    password = serializers.CharField(write_only=True)
 
     class Meta:
         """User serializer definition"""
@@ -28,6 +29,7 @@ class UserSerializer(serializers.ModelSerializer):
             "last_name",
             "full_name",
             "email",
+            "password",
             "phone_number",
             "role",
             "created_at",
@@ -37,6 +39,16 @@ class UserSerializer(serializers.ModelSerializer):
     def get_full_name(self, obj):
         """Get user's full name"""
         return f"{obj.first_name} {obj.last_name}"
+
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            first_name=validated_data.get("first_name"),
+            last_name=validated_data.get("last_name"),
+            email=validated_data.get("email"),
+            phone_number=validated_data.get("phone_number"),
+            password=validated_data["password"],
+        )
+        return user
 
     @action(detail=False, methods=["get"], url_path="me")
     def me(self, request):
@@ -517,33 +529,41 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     """
 
     def validate(self, attrs):
-        username = attrs.get("username")
+        # username = attrs.get("username")
 
         # Allow login with email instead of username
-        if "@" in username:
-            try:
-                user = User.objects.get(email=username)
-                attrs["username"] = user.username
-            except User.DoesNotExist:
-                # Let the parent class handle the error
-                pass
+        # if "@" in username:
+        #     try:
+        #         user = User.objects.get(email=username)
+        #         attrs["username"] = user.username
+        #     except User.DoesNotExist:
+        #         # Let the parent class handle the error
+        #         pass
 
         # Get the standard token response
-        data = super().validate(attrs)
+        # data = super().validate(attrs)
 
         # Get the user object and add custom data to response
-        user = User.objects.get(username=attrs["username"])
-        data.update(
-            {
-                "user_id": user.user_id,
-                "email": user.email,
-                "first_name": user.first_name,
-                "last_name": user.last_name,
-                "role": user.role,
-            }
-        )
-
+        # user = User.objects.get(username=attrs["username"])
+        # data.update(
+        #     {
+        #         "user_id": user.user_id,
+        #         "email": user.email,
+        #         "first_name": user.first_name,
+        #         "last_name": user.last_name,
+        #         "role": user.role,
+        #     }
+        # )
+        data = super().validate(attrs)
+        data["user"] = {
+            "user_id": self.user.user_id,
+            "email": self.user.email,
+            "first_name": self.user.first_name,
+            "last_name": self.user.last_name,
+            "role": self.user.role,
+        }
         return data
+
 
     def create(self, validated_data):
         raise NotImplementedError("This serializer is read-only")

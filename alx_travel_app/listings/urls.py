@@ -18,6 +18,8 @@ from .views import (
     PaymentSummaryView,
     RetryPaymentView,
     CancelPaymentView,
+    LoginView,
+    RegisterView,
 )
 
 router = DefaultRouter()
@@ -33,6 +35,8 @@ urlpatterns = [
     # JWT Authentication endpoints
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("register/", RegisterView.as_view(), name="register"),
+    path("login/", LoginView.as_view(), name="login"),
     # Payment endpoints
     path("payments/initiate/", InitiatePaymentView.as_view(), name="initiate-payment"),
     path("payments/verify/", VerifyPaymentView.as_view(), name="verify-payment"),
